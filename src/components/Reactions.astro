@@ -1,0 +1,194 @@
+---
+interface Props {
+  articleId: string;
+}
+const { articleId } = Astro.props;
+
+const reactions = [
+  { key: "thoughtful", emoji: "🤔", label: "Very thoughtful" },
+  { key: "relatable",  emoji: "🙏", label: "So relatable"    },
+  { key: "good",       emoji: "👍", label: "So good"         },
+  { key: "loved",      emoji: "❤️", label: "Loved it"        },
+  { key: "mind",       emoji: "🤯", label: "Blew my mind"    },
+];
+---
+
+<div class="reactions-bar" data-article-id={articleId} role="group" aria-label="Reactions">
+  {reactions.map((r) => (
+    <button class="reaction" data-key={r.key} aria-label={r.label} type="button">
+      <span class="reaction-emoji" aria-hidden="true">{r.emoji}</span>
+      <span class="reaction-label">{r.label}</span>
+      <span class="reaction-count" hidden>0</span>
+    </button>
+  ))}
+</div>
+
+<script>
+  type Counts = Record<string, number>;
+  const emptyCounts = (): Counts => ({
+    thoughtful: 0, relatable: 0, good: 0, loved: 0, mind: 0,
+  });
+
+  document.querySelectorAll<HTMLElement>(".reactions-bar").forEach((bar) => {
+    const articleId = bar.dataset.articleId!;
+    const storageKey = `reactions:${articleId}`;
+    const apiUrl = `/api/reactions/${articleId}`;
+
+    const loadLocal = (): Counts => {
+      try {
+        return { ...emptyCounts(), ...JSON.parse(localStorage.getItem(storageKey) || "{}") };
+      } catch { return emptyCounts(); }
+    };
+    const saveLocal = (c: Counts) => {
+      try { localStorage.setItem(storageKey, JSON.stringify(c)); } catch {}
+    };
+
+    let counts = loadLocal();
+    const buttons = bar.querySelectorAll<HTMLButtonElement>(".reaction");
+
+    const render = () => {
+      buttons.forEach((btn) => {
+        const k = btn.dataset.key!;
+        const n = counts[k] || 0;
+        const countEl = btn.querySelector<HTMLElement>(".reaction-count")!;
+        if (n > 0) { countEl.hidden = false; countEl.textContent = String(n); }
+        else { countEl.hidden = true; }
+        btn.classList.toggle("has-count", n > 0);
+      });
+    };
+    render();
+
+    // Hydrate from server. If it fails (no API, offline, dev without wrangler),
+    // we silently keep the localStorage values.
+    fetch(apiUrl, { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((server) => {
+        if (server && typeof server === "object") {
+          counts = { ...emptyCounts(), ...(server as Counts) };
+          saveLocal(counts);
+          render();
+        }
+      })
+      .catch(() => { /* localStorage is good enough offline */ });
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const k = btn.dataset.key!;
+
+        // Optimistic UI: update immediately, don't wait for the network.
+        counts[k] = (counts[k] || 0) + 1;
+        saveLocal(counts);
+        render();
+        btn.classList.remove("bump");
+        void btn.offsetWidth;
+        btn.classList.add("bump");
+
+        // Send to server. On success, reconcile with the authoritative count.
+        // On failure, keep the optimistic value (user still sees their click).
+        fetch(apiUrl, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ key: k }),
+        })
+          .then((r) => (r.ok ? r.json() : null))
+          .then((server) => {
+            if (server && typeof server === "object") {
+              counts = { ...emptyCounts(), ...(server as Counts) };
+              saveLocal(counts);
+              render();
+            }
+          })
+          .catch(() => { /* keep optimistic value */ });
+      });
+    });
+  });
+</script>
+
+<style>
+  .reactions-bar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    background: var(--bg-panel);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 8px 10px;
+    display: flex;
+    gap: 4px;
+    box-shadow:
+      0 16px 40px -16px rgba(15, 15, 16, 0.22),
+      0 4px 12px -6px rgba(15, 15, 16, 0.12);
+    max-width: calc(100vw - 32px);
+    overflow-x: auto;
+    scrollbar-width: none;
+    animation: reactions-rise 0.5s cubic-bezier(.2,.7,.2,1) both;
+    animation-delay: 0.4s;
+  }
+  .reactions-bar::-webkit-scrollbar { display: none; }
+
+  @keyframes reactions-rise {
+    from { opacity: 0; transform: translate(-50%, 12px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
+  }
+
+  .reaction {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg);
+    white-space: nowrap;
+    transition: background 0.18s, transform 0.12s;
+  }
+  .reaction:hover { background: var(--bg-soft); }
+  .reaction:active { transform: scale(0.96); }
+  .reaction:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .reaction-emoji {
+    font-size: 16px;
+    line-height: 1;
+    display: inline-block;
+    transform-origin: 50% 70%;
+  }
+  .reaction-label { font-weight: 600; }
+  .reaction-count {
+    color: var(--fg-muted);
+    font-weight: 600;
+    margin-left: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .reaction.has-count { background: var(--bg-soft); }
+
+  .reaction.bump .reaction-emoji {
+    animation: reaction-bump 0.42s cubic-bezier(.2,.7,.2,1);
+  }
+  @keyframes reaction-bump {
+    0%   { transform: scale(1) rotate(0deg); }
+    35%  { transform: scale(1.45) rotate(-10deg); }
+    65%  { transform: scale(1.05) rotate(4deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+
+  @media (max-width: 640px) {
+    .reaction-label { display: none; }
+    .reaction { padding: 10px 12px; gap: 6px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reactions-bar { animation: none; }
+    .reaction.bump .reaction-emoji { animation: none; }
+  }
+</style>

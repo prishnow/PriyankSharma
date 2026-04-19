@@ -1,0 +1,10 @@
+name = "priyanksharma"
+compatibility_date = "2026-04-01"
+pages_build_output_dir = "dist"
+
+# After creating the "REACTIONS" KV namespace in the Cloudflare dashboard,
+# paste its ID below (replace the placeholder string).
+# Cloudflare Pages reads this file during deploy to wire up the binding.
+[[kv_namespaces]]
+binding = "REACTIONS"
+id = "25a4ffdae3b54f24b3472a9321f16ae7"
