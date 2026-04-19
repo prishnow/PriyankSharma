@@ -1,0 +1,41 @@
+---
+const notes = [
+  { title: "AI is a mirror, not a genie",                          cat: "ai",         catLabel: "AI Experiments", views: 5530, tip: "Through the roof" },
+  { title: "The org that designs itself",                          cat: "leadership", catLabel: "Leadership",     views: 2382 },
+  { title: "Designing for the edges of healthcare",                cat: "design",     catLabel: "Design",         views: 2298 },
+  { title: "23 years and I still don't know what a senior designer is", cat: "career", catLabel: "Career",      views: 6456 },
+  { title: "The spec IS the UI now",                               cat: "ai",         catLabel: "AI Experiments", views: 2509 },
+  { title: "Taste debt",                                           cat: "design",     catLabel: "Design",         views: 1043 },
+  { title: "In praise of boring managers",                         cat: "leadership", catLabel: "Leadership",     views: 3652 },
+  { title: "Design ops is real work, not a spreadsheet hobby",     cat: "leadership", catLabel: "Leadership",     views: 1127 },
+  { title: "The polite lie of the portfolio site",                 cat: "career",     catLabel: "Career",         views: 480 },
+  { title: "My 6-year-old is my favorite PM",                      cat: "career",     catLabel: "Career",         views: 182 },
+];
+---
+
+<section class="latest-notes" id="latest-notes">
+  <div class="latest-notes-inner">
+    <aside class="latest-notes-head">
+      <h2>Latest notes</h2>
+      <p>Notes on product, design and leadership, born out of empirical learnings and everyday observations.</p>
+    </aside>
+
+    <div class="latest-notes-list">
+      {notes.map((n) => (
+        <a class="note-line" href="/notes">
+          <span class="note-line-title">{n.title}</span>
+          <span class={`note-line-cat cat-${n.cat}`}>{n.catLabel}</span>
+          <span class="note-line-views">
+            {n.tip && <span class="note-line-tip">{n.tip}</span>}
+            <svg class="bolt" viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true">
+              <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/>
+            </svg>
+            <span class="views-num">{n.views.toLocaleString()}</span>
+          </span>
+        </a>
+      ))}
+
+      <a class="latest-notes-viewall" href="/notes">View all</a>
+    </div>
+  </div>
+</section>

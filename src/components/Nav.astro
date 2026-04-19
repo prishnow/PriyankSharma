@@ -1,0 +1,43 @@
+---
+interface Props {
+  page?: "home" | "notes" | "manual" | "work" | "reading" | "stuff" | "about";
+}
+const { page = "home" } = Astro.props;
+
+const links: [string, string, string][] = [
+  ["notes", "Notes", "/notes"],
+  ["work", "Work", "/work"],
+  ["about", "About", "/about"],
+];
+
+const brandChars = "Priyank Sharma".split("");
+---
+
+<nav class="nav" data-nav>
+  <div class="nav-inner">
+    <a href="/" class="brand">
+      <span class="brand-name">{brandChars.map((ch, i) => (
+        <span class={ch === " " ? "brand-space" : "brand-letter"} style={`--i: ${i}`}>{ch === " " ? "\u00A0" : ch}</span>
+      ))}</span>
+      <small>· Design Director, Optum</small>
+    </a>
+    <div class="nav-links">
+      {links.map(([id, label, href]) => (
+        <a href={href} class={page === id ? "active" : ""}>{label}</a>
+      ))}
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn-ghost">Say hi</a>
+      <a href="/notes" class="btn-dark">Read notes</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  if (nav) {
+    const on = () => nav.classList.toggle("scrolled", window.scrollY > 10);
+    window.addEventListener("scroll", on, { passive: true });
+    on();
+  }
+</script>
