@@ -1,0 +1,114 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Reactions from "../../components/Reactions.astro";
+import { notes, type Note } from "../../data/notes";
+
+export async function getStaticPaths() {
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
+  }));
+}
+
+interface Props { note: Note; }
+const { note } = Astro.props;
+
+const dateStr = new Date(note.date).toLocaleDateString("en-US", {
+  year: "numeric", month: "long", day: "numeric",
+});
+---
+
+<Layout page="notes" title={`${note.title} — Priyank Sharma`}>
+  <article class="note-detail">
+    <div class="note-detail-grid">
+      <aside class="note-toc" aria-label="Table of contents">
+        <div class="note-toc-sticky">
+          <div class="note-toc-label">Contents</div>
+          <ol class="note-toc-list">
+            {note.body.map((s, i) => (
+              <li>
+                <a href={`#${s.id}`} data-toc-link={s.id}>
+                  <span class="note-toc-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span class="note-toc-title">{s.heading}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </aside>
+
+      <div class="note-content">
+        <header class="note-detail-head">
+          <div class="note-detail-meta">
+            <span class={`note-line-cat cat-${note.cat}`}>{note.catLabel}</span>
+            <span>{dateStr}</span>
+            <span>{note.readTime} read</span>
+          </div>
+          <h1 class="note-detail-title reveal">{note.title}</h1>
+          <p class="note-detail-excerpt reveal">{note.excerpt}</p>
+        </header>
+
+        <div class="note-body">
+          {note.body.map((s) => (
+            <section class="note-section" id={s.id} data-section={s.id}>
+              <h2 class="note-section-head reveal">{s.heading}</h2>
+              {s.paragraphs.map((p) => <p class="reveal">{p}</p>)}
+            </section>
+          ))}
+        </div>
+
+        <nav class="note-detail-footer">
+          <a href="/notes" class="note-backlink">← All notes</a>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <Reactions articleId={note.slug} />
+</Layout>
+
+<script>
+  // Reveal cascade: stagger first 8 on page load, IO for the rest.
+  // Mirrors hvpandya.com pattern — the cascade reads like prose appearing.
+  const revealables = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+  const BASE_DELAY = 150;
+  const STAGGER = 120;
+  const INITIAL_BATCH = Math.min(revealables.length, 8);
+
+  for (let i = 0; i < INITIAL_BATCH; i++) {
+    const el = revealables[i];
+    window.setTimeout(() => el.classList.add("is-in"), BASE_DELAY + i * STAGGER);
+  }
+
+  if (revealables.length > INITIAL_BATCH) {
+    const revealIo = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealIo.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    for (let j = INITIAL_BATCH; j < revealables.length; j++) {
+      revealIo.observe(revealables[j]);
+    }
+  }
+
+  // TOC scrollspy: highlight the link for the section currently being read
+  const tocLinks = new Map<string, HTMLElement>();
+  document.querySelectorAll<HTMLElement>("[data-toc-link]").forEach((l) => {
+    const id = l.dataset.tocLink!;
+    tocLinks.set(id, l);
+  });
+
+  const active = new Set<string>();
+  const spyIo = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      const id = (e.target as HTMLElement).dataset.section!;
+      if (e.isIntersecting) active.add(id); else active.delete(id);
+    }
+    tocLinks.forEach((link, id) => link.classList.toggle("is-current", active.has(id)));
+  }, { rootMargin: "-30% 0px -55% 0px" });
+
+  document.querySelectorAll<HTMLElement>("[data-section]").forEach((s) => spyIo.observe(s));
+</script>

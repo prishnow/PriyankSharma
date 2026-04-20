@@ -1,14 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PageHeader from "../components/PageHeader.astro";
-import Reactions from "../components/Reactions.astro";
+import NotesList from "../components/NotesList.astro";
 ---
 
 <Layout page="notes" title="Notes — Priyank Sharma">
-  <PageHeader
-    eyebrow="Notebook 01"
-    title="<em>Notes.</em>"
-    lede="Writing on design leadership, AI experiments, and healthcare. Coming soon."
-  />
-  <Reactions articleId="notes-demo" />
+  <section class="page-intro">
+    <h1>Notes on products, design &amp; leadership.</h1>
+    <p class="page-intro-body">
+      These are my notes on product &amp; design &ndash; like a semi-frequently updated journal.
+      Everything I write is born out of empirical learnings and everyday observations.
+      There's obviously bias in these notes but since there's a great dearth of honest personal
+      accounts from people in tech, I hope this serves as a useful one.
+    </p>
+    <p class="page-intro-meta">
+      Get these in your inbox: <a href="#">💌 Subscribe</a>
+    </p>
+    <p class="page-intro-meta">
+      After reading, if you have a different perspective, feel free to ping me on
+      <a href="#">twitter</a> or email <a href="mailto:hi@priyanks.com">hi@priyanks.com</a>
+    </p>
+  </section>
+  <NotesList />
 </Layout>

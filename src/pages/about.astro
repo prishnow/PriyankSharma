@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PageHeader from "../components/PageHeader.astro";
 ---
 
 <Layout page="about" title="About — Priyank Sharma">
-  <PageHeader
-    eyebrow="The long version"
-    title="<em>About.</em>"
-    lede="How I lead, how I got here, what I'm still figuring out. Coming soon."
-  />
+  <section class="page-intro">
+    <h1>About.</h1>
+    <p class="page-intro-body">
+      How I lead, how I got here, what I'm still figuring out. Coming soon.
+    </p>
+  </section>
 </Layout>

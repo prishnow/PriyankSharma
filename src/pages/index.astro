@@ -2,11 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import LatestNotes from "../components/LatestNotes.astro";
-import HomeIndex from "../components/HomeIndex.astro";
 ---
 
 <Layout page="home">
+  <div class="noise-layer" aria-hidden="true"></div>
   <Hero />
   <LatestNotes />
-  <HomeIndex />
 </Layout>

@@ -1,0 +1,21 @@
+---
+import { notes } from "../data/notes";
+---
+
+<section class="notes-full">
+  <div class="notes-full-inner">
+    {notes.map((n) => (
+      <a class="note-line" href={`/notes/${n.slug}`}>
+        <span class="note-line-title">{n.title}</span>
+        <span class={`note-line-cat cat-${n.cat}`}>{n.catLabel}</span>
+        <span class="note-line-views">
+          {n.tip && <span class="note-line-tip">{n.tip}</span>}
+          <svg class="bolt" viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true">
+            <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/>
+          </svg>
+          <span class="views-num">{n.views.toLocaleString()}</span>
+        </span>
+      </a>
+    ))}
+  </div>
+</section>

@@ -19,7 +19,6 @@ const brandChars = "Priyank Sharma".split("");
       <span class="brand-name">{brandChars.map((ch, i) => (
         <span class={ch === " " ? "brand-space" : "brand-letter"} style={`--i: ${i}`}>{ch === " " ? "\u00A0" : ch}</span>
       ))}</span>
-      <small>· Design Director, Optum</small>
     </a>
     <div class="nav-links">
       {links.map(([id, label, href]) => (
