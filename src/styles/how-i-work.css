@@ -1,0 +1,21 @@
+/* ---------- /how-i-work ---------- */
+/* Page uses the shared .note-detail* system for layout and typography.
+   Only the CTA block below the last section is page-specific. */
+.hiw-cta-block {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-hairline);
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+}
+.hiw-cta-block a {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 2.5;
+  color: var(--color-accent);
+  width: fit-content;
+  transition: color 150ms ease;
+}
+.hiw-cta-block a:hover { color: var(--color-accent-hover); }

@@ -1,0 +1,164 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Reactions from "../components/Reactions.astro";
+import "../styles/how-i-work.css";
+
+const sections: { id: string; heading: string; paragraphs: string[] }[] = [
+  {
+    id: "on-design-leadership",
+    heading: "On design leadership",
+    paragraphs: [
+      "I used to think my job was to have the best taste in the room. I was wrong, and it took me longer than I'd like to admit to figure that out.",
+      "My actual job is to make the room itself better. To build the kind of environment where good work can happen — where people feel safe enough to say the thing they're afraid to say, and skilled enough to say it well. That's it. Everything else is administrative.",
+      "Most design orgs I've seen are managed within an inch of their lives and led almost not at all. I've been guilty of this too. The difference between managing and leading is roughly the difference between holding the brush and teaching someone to see. Both feel productive. Only one of them compounds.",
+    ],
+  },
+  {
+    id: "on-ai",
+    heading: "On AI and where we are right now",
+    paragraphs: [
+      "I'm not going to tell you I have this figured out. Nobody does, and the ones who say they do are usually trying to sell you a course.",
+      "What I know is that I've spent the last two years trying to honestly rebuild how my team works — not by announcing a new AI policy or running a hackathon, but by sitting with the uncomfortable question of which parts of our work actually require a human, and which parts we were doing by hand out of habit or fear.",
+      "Some of what I found was humbling. A lot of the work I thought required judgment just required patience, and agents have more patience than I do. The work that actually requires judgment is harder than I thought, and rarer, and more valuable than it's ever been.",
+      "I'm still in the middle of this. Most honest people are.",
+    ],
+  },
+  {
+    id: "best-work-with",
+    heading: "People I do my best work with",
+    paragraphs: [
+      "Designers who are nosy about things that aren't their job. Who want to understand how the engineering decision upstream is going to constrain the design decision downstream, even when nobody asked them to.",
+      "People who can hold a strong opinion loosely. Who've learned — usually the hard way — that being right and being useful are not the same thing.",
+      "People who read. Not for self-improvement. Not to have things to say at meetings. Just because they find the world genuinely interesting and books are one of the better ways into it.",
+      "Leaders who are trying to build something that will still be standing after they leave. Not a legacy. Just something solid.",
+    ],
+  },
+  {
+    id: "harder-to-work-with",
+    heading: "People I find harder to work with",
+    paragraphs: [
+      "I'll try to be honest about this, which means I'll probably sound a little uncharitable.",
+      "People who are very busy and very proud of it. Busyness is not a personality. It is often a way of avoiding the one hard thing you should be doing.",
+      "People who use the word alignment the way other people use the word no — as a way to end a conversation without having it.",
+      "Teams where the design critique is actually a presentation. Where the work is done before the meeting and the meeting is for everyone to feel involved. I've sat in hundreds of these. They're one of the great slow-motion wastes in product organisations.",
+      "People who have a values page.",
+    ],
+  },
+  {
+    id: "how-i-run",
+    heading: "How I actually run a team",
+    paragraphs: [
+      "The most important thing I do is run a real critique. Not a review. Not a show-and-tell. A critique — which means the work comes in unfinished and the room's job is to make it better, not to decide whether to approve it. This sounds obvious. It is almost never how it actually works.",
+      "I try to give feedback when it's cheap, not when it's expensive. A comment on a sketch takes five minutes. A comment on something that's already in development takes five weeks and costs someone's goodwill.",
+      "I hire for trajectory. I've worked with designers who had extraordinary portfolios and couldn't think on their feet, and designers who had almost nothing to show and turned out to be the most interesting people in the room. I know which ones I'd hire again.",
+      "I'm still trying to be the kind of manager I wish I'd had earlier. Some days I'm closer than others.",
+    ],
+  },
+  {
+    id: "looking-for",
+    heading: "What I'm looking for",
+    paragraphs: [
+      "A design function that needs to be rebuilt, not polished. I'm not very good at polishing. I'm reasonably good at starting from an honest assessment of what's broken and working forward from there.",
+      "A space where the design decisions have real consequences. Where a bad call doesn't just mean a worse metric — it means a worse experience for a person who was already having a hard enough day.",
+      "A leadership team that has genuinely thought about what design is for, not just what designers do.",
+      "A team I can learn from. I've found that the teams that teach me the most are the ones I'm supposed to be leading. I don't know exactly what that says about me, but I've stopped fighting it.",
+      "If any of this sounds like where you work, I'd genuinely like to talk.",
+    ],
+  },
+];
+---
+
+<Layout page="how-i-work" title="How I work — Priyank Sharma">
+  <section class="page-intro page-intro--thinking">
+    <h1>How I work</h1>
+    <p class="page-intro-body">
+      This is not a job description. It's closer to what I'd tell you over coffee if we had enough time and you asked the right questions.
+    </p>
+  </section>
+
+  <article class="note-detail">
+    <div class="note-detail-grid">
+      <aside class="note-toc" aria-label="Table of contents">
+        <div class="note-toc-sticky">
+          <div class="note-toc-label">Contents</div>
+          <ol class="note-toc-list">
+            {sections.map((s) => (
+              <li>
+                <a href={`#${s.id}`} data-toc-link={s.id}>
+                  <span class="note-toc-title">{s.heading}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </aside>
+
+      <div class="note-content">
+        <div class="note-body">
+          {sections.map((s) => (
+            <section class="note-section" id={s.id} data-section={s.id}>
+              <h2 class="note-section-head reveal">{s.heading}</h2>
+              {s.paragraphs.map((p) => <p class="reveal">{p}</p>)}
+            </section>
+          ))}
+
+          <div class="hiw-cta-block reveal">
+            <a href="#">Book 30 minutes &rarr;</a>
+            <a href="mailto:hi@priyanks.com">hi@priyanks.com</a>
+            <a href="https://linkedin.com/in/priyanksharma-product-design-leader" target="_blank" rel="noopener noreferrer">LinkedIn &rarr;</a>
+          </div>
+        </div>
+
+        <nav class="note-detail-footer">
+          <a href="/" class="note-backlink">&larr; Home</a>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <Reactions articleId="how-i-work" />
+</Layout>
+
+<script>
+  /* Reveal cascade: first 8 elements stagger on load, rest via
+     IntersectionObserver — matches the essay detail page pattern. */
+  const revealables = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+  const BASE_DELAY = 150;
+  const STAGGER = 120;
+  const INITIAL_BATCH = Math.min(revealables.length, 8);
+
+  for (let i = 0; i < INITIAL_BATCH; i++) {
+    const el = revealables[i];
+    window.setTimeout(() => el.classList.add("is-in"), BASE_DELAY + i * STAGGER);
+  }
+  if (revealables.length > INITIAL_BATCH) {
+    const revealIo = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealIo.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    for (let j = INITIAL_BATCH; j < revealables.length; j++) {
+      revealIo.observe(revealables[j]);
+    }
+  }
+
+  /* TOC scrollspy — highlights the TOC link for the section currently
+     within the viewport's middle band. */
+  const tocLinks = new Map<string, HTMLElement>();
+  document.querySelectorAll<HTMLElement>("[data-toc-link]").forEach((l) => {
+    tocLinks.set(l.dataset.tocLink!, l);
+  });
+  const active = new Set<string>();
+  const spyIo = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      const id = (e.target as HTMLElement).dataset.section!;
+      if (e.isIntersecting) active.add(id); else active.delete(id);
+    }
+    tocLinks.forEach((link, id) => link.classList.toggle("is-current", active.has(id)));
+  }, { rootMargin: "-30% 0px -55% 0px" });
+
+  document.querySelectorAll<HTMLElement>("[data-section]").forEach((s) => spyIo.observe(s));
+</script>

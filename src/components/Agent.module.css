@@ -1,0 +1,115 @@
+/* ---------- <Agent /> reusable agent UX ---------- */
+.agent {
+  width: 100%;
+  max-width: 600px;
+}
+
+.form {
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+.formFading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.inputWrap {
+  position: relative;
+  margin-bottom: 0.85rem;
+}
+.input {
+  width: 100%;
+  padding: 0.95rem 3rem 0.95rem 1.1rem;
+  background: var(--color-cream);
+  border: 1px solid var(--color-hairline);
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 150ms ease;
+}
+.input::placeholder {
+  color: var(--color-ink);
+  opacity: 0.55;
+}
+.input:focus { border-color: var(--color-ink); }
+
+.submitBtn {
+  position: absolute;
+  top: 50%;
+  right: 0.65rem;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+  color: #ffffff;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0;
+  transition: background 150ms ease;
+}
+.submitBtn:hover { background: var(--color-accent); }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.chip {
+  padding: 0.45rem 0.9rem;
+  background: transparent;
+  border: 1px solid var(--color-hairline);
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.chip:hover {
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.response {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--color-ink);
+  margin: 0;
+  max-width: 600px;
+  text-wrap: pretty;
+  animation: agent-response-fade 250ms ease both;
+}
+@keyframes agent-response-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.askAnother {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--color-accent);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+.askAnother:hover { color: var(--color-accent-hover); }
+
+@media (prefers-reduced-motion: reduce) {
+  .response { animation: none; }
+  .form { transition: none; }
+}

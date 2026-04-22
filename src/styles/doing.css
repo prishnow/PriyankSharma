@@ -1,0 +1,140 @@
+/* ---------- /doing (experiments / vibe-coding projects) ---------- */
+
+.doing-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 96px) var(--pad) clamp(60px, 8vw, 96px);
+  text-align: left;
+}
+
+.doing-page-back {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 400;
+  color: var(--color-muted);
+  line-height: 1.4;
+  margin-bottom: 3rem;
+  transition: color 150ms ease;
+}
+.doing-page-back:hover { color: var(--color-accent); }
+
+.doing-page-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-h1);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--color-ink);
+  margin: 0 0 1rem;
+}
+
+.doing-page-subtitle {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-muted);
+  margin: 0 0 3rem;
+  max-width: 520px;
+}
+
+/* ---- Grid ---- */
+.doing-page .doing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 768px) {
+  .doing-page .doing-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Card ---- */
+.doing-page .doing-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  border: 1px solid var(--color-hairline);
+  border-radius: 6px;
+  background: transparent;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+.doing-page .doing-card:hover {
+  border-color: rgba(201, 111, 74, 0.3);
+  background-color: #F9F6F1;
+}
+
+.doing-page .doing-card-status {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--color-muted);
+}
+.doing-page .doing-card.is-live .doing-card-status {
+  color: var(--color-accent);
+}
+.doing-page .doing-card.is-abandoned .doing-card-status {
+  color: #9B9B9B;
+}
+
+.doing-page .doing-card-name {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  color: var(--color-ink);
+  margin: 0 0 0.4rem;
+  padding-right: 5rem; /* keep clear of the absolute status tag */
+}
+.doing-page .doing-card.is-abandoned .doing-card-name {
+  text-decoration: line-through;
+  color: #9B9B9B;
+}
+
+.doing-page .doing-card-desc {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-muted);
+  margin: 0 0 0.75rem;
+}
+
+.doing-page .doing-card-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.doing-page .doing-card-tag {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-muted);
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--color-hairline);
+  border-radius: 999px;
+  background: transparent;
+}
+
+.doing-page .doing-card-open {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  margin-top: 0.75rem;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.doing-page .doing-card-open:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

@@ -1,0 +1,107 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { notes } from "../../data/notes";
+
+/**
+ * Thinking page — single list of all essays + notes with a tag-filter pill bar.
+ * No tabs. Tag state lives in ?tag=<slug> so the page works without JS.
+ *
+ * The Framework tag is reserved: no note currently has cat === "framework",
+ * so the filter returns an empty list for that tag. Once framework pieces
+ * exist in the notes data (or a future content collection) with cat: "framework",
+ * they'll flow into this list automatically.
+ */
+
+type TagValue = "ai" | "leadership" | "design" | "career" | "framework" | null;
+
+const TAGS: { value: Exclude<TagValue, null>; label: string }[] = [
+  { value: "ai",         label: "AI Experiments" },
+  { value: "leadership", label: "Leadership" },
+  { value: "design",     label: "Design" },
+  { value: "career",     label: "Career" },
+  { value: "framework",  label: "Framework" },
+];
+
+const rawTag = Astro.url.searchParams.get("tag");
+const activeTag: TagValue = TAGS.some((t) => t.value === rawTag)
+  ? (rawTag as Exclude<TagValue, null>)
+  : null;
+
+const filtered = activeTag
+  ? notes.filter((n) => (n.cat as string) === activeTag)
+  : notes;
+
+const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
+
+function formatDate(iso: string): string {
+  try {
+    return new Date(iso + "T00:00:00Z").toLocaleDateString("en-US", {
+      month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
+    });
+  } catch {
+    return iso;
+  }
+}
+
+function hrefFor(val: Exclude<TagValue, null> | null): string {
+  return val ? `/thinking?tag=${val}` : "/thinking";
+}
+---
+
+<Layout page="thinking" title="Thinking — Priyank Sharma">
+  <section class="page-intro page-intro--thinking">
+    <h1>Thinking</h1>
+    <p class="page-intro-body">
+      Notes on design leadership, AI, and the slow work of building things that last.
+      Everything here is born from practice, not theory &mdash; 23 years of observations,
+      decisions, and the occasional expensive mistake. Biased, obviously. But honest.
+    </p>
+    <p class="page-intro-meta">
+      If something lands differently &mdash; <a href="mailto:hi@priyanks.com">hi@priyanks.com</a>
+    </p>
+  </section>
+
+  <nav class="thinking-tagbar" aria-label="Filter by category">
+    <div class="thinking-tagbar-inner">
+      <a
+        href="/thinking"
+        class={`thinking-tagpill ${activeTag === null ? "is-active" : ""}`}
+      >All</a>
+      {TAGS.map((t) => {
+        const isActive = activeTag === t.value;
+        return (
+          <a
+            href={isActive ? "/thinking" : hrefFor(t.value)}
+            class={`thinking-tagpill ${isActive ? "is-active" : ""}`}
+          >{t.label}</a>
+        );
+      })}
+    </div>
+  </nav>
+
+  <section class="thinking-stream">
+    <div class="thinking-stream-inner">
+      {sorted.length === 0 ? (
+        <p class="thinking-empty">Nothing here yet under that filter.</p>
+      ) : (
+        <ul class="thinking-list">
+          {sorted.map((n) => (
+            <li class="thinking-item">
+              <a class="thinking-item-title" href={`/thinking/${n.slug}`}>
+                {n.title}
+              </a>
+              <p class="thinking-item-hook">{n.excerpt}</p>
+              <div class="thinking-item-meta">
+                <span class="thinking-item-cat">{n.catLabel}</span>
+                <span class="thinking-item-dot" aria-hidden="true">·</span>
+                <span>{n.readTime} read</span>
+                <span class="thinking-item-dot" aria-hidden="true">·</span>
+                <span>{formatDate(n.date)}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</Layout>

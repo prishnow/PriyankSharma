@@ -1,0 +1,102 @@
+/* ---------- /about ---------- */
+.about-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 96px) var(--pad) clamp(28px, 4vw, 44px);
+  text-align: left;
+}
+
+.about-back {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 400;
+  color: var(--color-muted);
+  line-height: 1.4;
+  margin-bottom: 3rem;
+  transition: color 150ms ease;
+}
+.about-back:hover { color: var(--color-accent); }
+
+.about-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-h1);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--color-ink);
+  margin: 0 0 0.5rem;
+}
+.about-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-muted);
+  margin: 0 0 3rem;
+  max-width: 520px;
+}
+
+.about-body { max-width: 640px; }
+
+.about-section + .about-section {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--color-hairline);
+}
+.about-section-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  color: var(--color-accent);
+  margin: 0 0 1rem;
+}
+.about-section p {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.65;
+  color: var(--color-ink);
+  margin: 0 0 1.25rem;
+}
+.about-section p:last-child { margin-bottom: 0; }
+
+.about-section a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 150ms ease;
+}
+.about-section a:hover { color: var(--color-accent-hover); }
+
+/* Agent sits inside a section — allow its wider max-width */
+.about-section--agent { max-width: 640px; }
+
+.about-cta-hairline {
+  border: 0;
+  border-top: 1px solid var(--color-hairline);
+  margin: 2.5rem 0 1.5rem;
+  max-width: 640px;
+}
+.about-cta {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+}
+.about-cta a {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 2.5;
+  color: var(--color-accent);
+  text-decoration: none;
+  width: fit-content;
+  transition: color 150ms ease;
+}
+.about-cta a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

@@ -1,0 +1,87 @@
+---
+/**
+ * Cuberto mouse-follower — custom animated cursor that replaces the native
+ * pointer on desktop (library auto-disables on touch devices).
+ *
+ * Default state detection adds a `-pointer` class when hovering any <a> or
+ * <button>, enlarging the cursor. Add `data-cursor="-pointer"` to custom
+ * elements to opt them in too.
+ */
+---
+
+<script>
+  import "mouse-follower/dist/mouse-follower.min.css";
+  import MouseFollower from "mouse-follower";
+  import gsap from "gsap";
+
+  MouseFollower.registerGSAP(gsap);
+
+  // Library auto-guards against touch via `(pointer: coarse)` internally,
+  // so no media-query check needed on our side.
+  new MouseFollower({
+    container: document.body,
+    speed: 0.55,
+    ease: "expo.out",
+    skewing: 2,
+    skewingText: 2,
+    skewingIcon: 2,
+    skewingMedia: 2,
+    skewingDelta: 0.001,
+    skewingDeltaMax: 0.15,
+    stickDelta: 0.15,
+    showTimeout: 20,
+    hideOnLeave: true,
+    hideTimeout: 300,
+    stateDetection: {
+      "-pointer": "a, button, [role=button], input[type=submit]",
+      "-hidden":  "input[type=text], input[type=email], textarea",
+      "-nav":     ".nav a, .nav button",
+    },
+  });
+</script>
+
+<style is:global>
+  /* Keep native text cursor on inputs/textarea — the library globally sets
+     cursor:none which removes the I-beam. Restore it for text fields so
+     typing feels right. The library also hides its own cursor over these
+     elements via the `-hidden` state above. */
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  textarea {
+    cursor: text;
+  }
+
+  /* Over buttons/links elsewhere the cursor balloons from a small dot
+     into a terracotta circle. The library's default -pointer rule shrinks
+     the cursor, so we override here. */
+  .mf-cursor.-pointer {
+    color: var(--color-accent);
+  }
+  .mf-cursor.-pointer:before {
+    transform: scale(1);
+    opacity: 0.95;
+    transition:
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.3s ease,
+      opacity 0.2s ease;
+  }
+
+  /* Cuberto-style nav cursor: over any top-nav item the cursor grows
+     slightly AND flips to `mix-blend-mode: exclusion`, inverting the
+     colors of text and background that happen to be underneath.
+     `!important` beats the library's default -pointer rules which would
+     otherwise win the cascade depending on bundle order. */
+  .mf-cursor.-nav {
+    mix-blend-mode: exclusion !important;
+  }
+  .mf-cursor.-nav:before {
+    transform: scale(0.65) !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+    transition:
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.25s ease,
+      opacity 0.2s ease !important;
+  }
+</style>

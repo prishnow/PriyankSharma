@@ -13,14 +13,22 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^5.0.3",
+    "@astrojs/react": "^5.0.3",
+    "@fontsource-variable/inter": "^5.2.8",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource-variable/lora": "^5.2.8",
-    "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
-    "@fontsource/instrument-serif": "^5.2.8",
-    "astro": "^6.1.7"
+    "@fontsource/atkinson-hyperlegible": "^5.2.8",
+    "astro": "^6.1.7",
+    "gsap": "^3.15.0",
+    "mouse-follower": "^1.1.2",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260401.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "wrangler": "^4.0.0"
   }
 }

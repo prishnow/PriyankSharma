@@ -1,0 +1,226 @@
+---
+const frameworks = [
+  {
+    diagram: "maturity",
+    name: "AI-NATIVE DESIGN ORG MATURITY MODEL",
+    definition:
+      "Where your design org actually sits between \u201Cwe tried ChatGPT\u201D and \u201Cthe operating system is built around agents.\u201D",
+    href: "/thinking/frameworks/ai-native-maturity-model",
+  },
+  {
+    diagram: "copilot",
+    name: "THE COPILOT GRADIENT",
+    definition:
+      "Every design task lives on a spectrum between human-driven and agent-driven. The craft is picking the right point for each one.",
+    href: "/thinking/frameworks/copilot-gradient",
+  },
+  {
+    diagram: "taste",
+    name: "THE TASTE LAYER",
+    definition:
+      "AI is commoditising execution. What remains scarce \u2014 and what the work actually trades on \u2014 is taste.",
+    href: "/thinking/frameworks/taste-layer",
+  },
+];
+---
+
+<section class="frameworks">
+  <div class="frameworks-inner">
+    <div class="frameworks-label">Frameworks</div>
+
+    <div class="frameworks-grid">
+      {frameworks.map((f) => (
+        <a href={f.href} class={`framework-card framework-card--${f.diagram}`}>
+          <div class="framework-name">{f.name}</div>
+          <div class="framework-definition">{f.definition}</div>
+
+          <div class="framework-diagram">
+            {f.diagram === "maturity" && (
+              <svg viewBox="0 0 200 80" width="200" height="80" xmlns="http://www.w3.org/2000/svg">
+                {/* Connecting lines */}
+                <line x1="30" y1="25" x2="80" y2="25" stroke="#C4BFB8" stroke-width="1" />
+                <line x1="80" y1="25" x2="130" y2="25" stroke="#C4BFB8" stroke-width="1" />
+                <line x1="130" y1="25" x2="180" y2="25" stroke="#C4BFB8" stroke-width="1" />
+                {/* Circles — first three muted, fourth terracotta */}
+                <circle cx="30" cy="25" r="8" fill="#E5E0D8" stroke="#C4BFB8" stroke-width="1" />
+                <circle cx="80" cy="25" r="8" fill="#E5E0D8" stroke="#C4BFB8" stroke-width="1" />
+                <circle cx="130" cy="25" r="8" fill="#E5E0D8" stroke="#C4BFB8" stroke-width="1" />
+                <circle class="maturity-active" cx="180" cy="25" r="8" fill="#C96F4A" stroke="#B85F3A" stroke-width="1" />
+                {/* Labels */}
+                <text x="30"  y="55" text-anchor="middle" class="framework-diagram-label">Curious</text>
+                <text x="80"  y="55" text-anchor="middle" class="framework-diagram-label">Assisted</text>
+                <text x="130" y="55" text-anchor="middle" class="framework-diagram-label">Augmented</text>
+                <text x="180" y="55" text-anchor="middle" class="framework-diagram-label">Native</text>
+              </svg>
+            )}
+
+            {f.diagram === "copilot" && (
+              <svg viewBox="0 0 200 80" width="200" height="80" xmlns="http://www.w3.org/2000/svg">
+                {/* Bar — left half muted, right half terracotta */}
+                <rect x="0"   y="37" width="100" height="6" rx="3" fill="#E5E0D8" />
+                <rect x="100" y="37" width="100" height="6" rx="3" fill="#C96F4A" />
+                {/* Marker — starts at midpoint, slides on hover */}
+                <circle class="copilot-marker" cx="100" cy="40" r="5" fill="#ffffff" stroke="#C96F4A" stroke-width="1.5" />
+                {/* Labels */}
+                <text x="0"   y="65" text-anchor="start" class="framework-diagram-label">Human</text>
+                <text x="200" y="65" text-anchor="end"   class="framework-diagram-label">Agent</text>
+              </svg>
+            )}
+
+            {f.diagram === "taste" && (
+              <svg viewBox="0 0 200 80" width="200" height="80" xmlns="http://www.w3.org/2000/svg">
+                {/* Left circle — Execution, larger */}
+                <circle
+                  class="taste-execution"
+                  cx="80" cy="40" r="30"
+                  fill="rgba(201,111,74,0.15)" stroke="#C96F4A" stroke-width="1"
+                />
+                {/* Right circle — Taste, smaller, overlaps */}
+                <circle
+                  class="taste-taste"
+                  cx="130" cy="40" r="20"
+                  fill="rgba(201,111,74,0.3)" stroke="#C96F4A" stroke-width="1"
+                />
+                {/* Labels */}
+                <text x="80"  y="78" text-anchor="middle" class="framework-diagram-label taste-label-execution">Execution</text>
+                <text x="130" y="78" text-anchor="middle" class="framework-diagram-label taste-label-taste">Taste</text>
+              </svg>
+            )}
+          </div>
+
+          <div class="framework-link">Read the thinking <span aria-hidden="true">&rarr;</span></div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .frameworks {
+    padding: clamp(2.5rem, 6vh, 4rem) var(--pad);
+    background: var(--color-bg);
+  }
+  .frameworks-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .frameworks-label {
+    font-family: "Inter Variable", Inter, system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .frameworks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 768px) {
+    .frameworks-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Card ---- */
+  .framework-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid var(--color-hairline);
+    border-radius: 6px;
+    background: transparent;
+    text-decoration: none;
+    color: var(--color-ink);
+    transition: border-color 150ms ease, background-color 150ms ease;
+  }
+  .framework-card:hover {
+    border-color: rgba(201, 111, 74, 0.3);
+    background-color: #F9F6F1;
+  }
+
+  .framework-name {
+    font-family: "Inter Variable", Inter, system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .framework-definition {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: var(--color-ink);
+    margin-top: 0.5rem;
+    text-wrap: pretty;
+  }
+  .framework-diagram {
+    margin-top: 1rem;
+    display: block;
+  }
+  .framework-diagram svg { display: block; max-width: 100%; height: auto; }
+  .framework-diagram-label {
+    font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+    font-size: 10px;
+    fill: var(--color-muted);
+    transition: opacity 500ms ease-in-out, font-weight 500ms ease-in-out;
+  }
+  .framework-link {
+    margin-top: 1rem;
+    font-family: "Inter Variable", Inter, system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    transition: color 150ms ease;
+  }
+  .framework-card:hover .framework-link { color: var(--color-accent-hover); }
+
+  /* ---- Card 1: maturity model — pulse the fourth circle on card hover ---- */
+  .maturity-active {
+    transform-origin: 180px 25px;
+  }
+  .framework-card--maturity:hover .maturity-active {
+    animation: maturity-pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes maturity-pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.15); }
+  }
+
+  /* ---- Card 2: copilot gradient — marker slides from 50% to 75% on hover ---- */
+  .copilot-marker {
+    transition: transform 600ms ease-out;
+  }
+  .framework-card--copilot:hover .copilot-marker {
+    transform: translateX(50px); /* 25% of 200px width = 50px */
+  }
+
+  /* ---- Card 3: taste layer — circles shrink/grow on hover ---- */
+  .taste-execution {
+    transform-origin: 80px 40px;
+    transition: transform 500ms ease-in-out;
+  }
+  .taste-taste {
+    transform-origin: 130px 40px;
+    transition: transform 500ms ease-in-out;
+  }
+  /* Execution 60→45px (scale 0.75), Taste 40→55px (scale 1.375) */
+  .framework-card--taste:hover .taste-execution { transform: scale(0.75); }
+  .framework-card--taste:hover .taste-taste     { transform: scale(1.375); }
+  .framework-card--taste:hover .taste-label-execution { opacity: 0.5; }
+  .framework-card--taste:hover .taste-label-taste     { opacity: 1; font-weight: 500; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .maturity-active,
+    .copilot-marker,
+    .taste-execution,
+    .taste-taste,
+    .framework-diagram-label,
+    .framework-card,
+    .framework-link { animation: none !important; transition: none !important; }
+  }
+</style>

@@ -12,7 +12,7 @@ const latest = notes.slice(0, 7);
 
     <div class="latest-notes-list">
       {latest.map((n) => (
-        <a class="note-line" href={`/notes/${n.slug}`}>
+        <a class="note-line" href={`/thinking/${n.slug}`}>
           <span class="note-line-title">{n.title}</span>
           <span class={`note-line-cat cat-${n.cat}`}>{n.catLabel}</span>
           <span class="note-line-views">
@@ -25,7 +25,7 @@ const latest = notes.slice(0, 7);
         </a>
       ))}
 
-      <a class="latest-notes-viewall" href="/notes">View all</a>
+      <a class="latest-notes-viewall" href="/thinking">View all</a>
     </div>
   </div>
 </section>

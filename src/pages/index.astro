@@ -1,11 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
+import Hero from "../components/Hero.tsx";
+import Frameworks from "../components/Frameworks.astro";
 import LatestNotes from "../components/LatestNotes.astro";
 ---
 
 <Layout page="home">
   <div class="noise-layer" aria-hidden="true"></div>
-  <Hero />
+  <Hero client:load />
+  <Frameworks />
   <LatestNotes />
 </Layout>

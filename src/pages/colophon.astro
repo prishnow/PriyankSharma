@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout page="colophon" title="Colophon — Priyank Sharma">
+  <section class="colophon">
+    <a href="/" class="colophon-back">&larr; Home</a>
+
+    <h1 class="colophon-title">Colophon</h1>
+
+    <div class="colophon-body">
+      <p>This site is a working artifact. It changes when my thinking changes.</p>
+
+      <p>
+        Built with Astro &mdash; a content-first framework that keeps the writing
+        fast and the JavaScript minimal. Hosted on Cloudflare Pages, deployed
+        automatically when I push to GitHub. The reactions backend runs on
+        Cloudflare Workers KV &mdash; about 80 lines of code I wrote on a Sunday
+        before I knew what a terminal was.
+      </p>
+
+      <p>
+        The agent on the homepage is powered by the Anthropic API &mdash; Claude
+        Sonnet, with a system prompt I wrote that tries to make it sound like me.
+        It mostly does.
+      </p>
+
+      <p>
+        Set in Lora (serif) and Inter (sans-serif), both via Google Fonts.
+        Terracotta accent at #C96F4A, chosen because every other design portfolio
+        uses blue.
+      </p>
+
+      <p>
+        Source on <a href="https://github.com/prishnow/PriyankSharma" target="_blank" rel="noopener noreferrer">GitHub</a>.
+        Feel free to look around.
+      </p>
+    </div>
+
+    <hr class="colophon-hairline" />
+    <p class="colophon-meta">Last updated: April 2026</p>
+  </section>
+</Layout>

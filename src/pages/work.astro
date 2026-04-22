@@ -1,12 +1,116 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+interface Chapter {
+  id: string;
+  title: string;
+  meta: string;
+  story: string;
+  moments?: string[];
+}
+
+const chapters: Chapter[] = [
+  {
+    id: "learning-to-see",
+    title: "Learning to see",
+    meta: "2002 \u2013 2008  \u00B7  R Systems, Access Technology, SoftMax, Fidelity Investments",
+    story:
+      "I started as a UI designer when UI design meant making things look like other things that already existed. The first few years were mostly about speed and execution \u2014 getting things done, learning the tools, figuring out which feedback to take and which to smile at and ignore. Fidelity was where it shifted. A confusing flow in an investment platform wasn't an aesthetic problem \u2014 it was a financial one. People were making worse decisions because of how the interface was organized. I was not a particularly good designer in these years. I was, however, a very attentive one. I watched what people ignored, what they clicked by accident, what made them lean forward. That habit of watching has been more useful than anything I was formally taught.",
+  },
+  {
+    id: "learning-to-influence",
+    title: "Learning to influence",
+    meta: "2008 \u2013 2012  \u00B7  Microsoft",
+    story:
+      "Microsoft was the first place I understood that design leadership was a political problem as much as a craft one. I was running UX for Order Management in India \u2014 a product nobody at HQ thought about very much, which turned out to be an advantage. We had room to try things. We built DesignOps rituals that the broader organization formalized years later, which taught me something I keep relearning: the best time to build the right process is when nobody's watching closely enough to stop you. I also said yes to a panel on design leadership that year before I had anything worth saying. The panel went fine. More usefully, it produced a public commitment I then had to actually deliver on. I've said yes before I was ready several times since. It remains one of the better habits I've accidentally developed.",
+  },
+  {
+    id: "learning-to-build",
+    title: "Learning to build",
+    meta: "2012 \u2013 2019  \u00B7  Optum (UHG)",
+    story:
+      "I joined Optum when the India design team was effectively one person. Seven years later it was thirty. That growth sounds like an achievement in a resume bullet point. In practice it was a series of near-failures held together by people who cared more about the work than the org chart. The hardest part wasn't hiring \u2014 it was building a shared language across six products that had nothing in common except the company name on the login page. We eventually got to 40% component reuse. The number matters less than what it required: two years of proof over persuasion, one component at a time.",
+    moments: [
+      "We had spent 18 months building a design system. It was technically correct and practically ignored. Teams worked around it. Designers maintained parallel libraries. Every sprint review revealed another fork. I killed it \u2014 not refactored, killed \u2014 and started over with three components and one rule: nothing gets added until two teams ask for it independently. The second version took six months and actually got used. A design system nobody uses is just expensive documentation.",
+      "When I had budget for one more person, every stakeholder assumed I'd hire another designer. I hired a researcher. For six months I answered questions about why there was a researcher but not enough designers. Then her first findings changed the roadmap for two products and the questions stopped. Hiring for the gap nobody sees is harder than hiring for the gap everybody points at. It's also usually more valuable.",
+      "The strongest designer I ever hired had a portfolio that would have been rejected in a standard screening. Inconsistent presentation, one incomplete case study, work that looked unfinished. I almost passed. Instead I asked her to walk me through one decision in one project \u2014 not the outcome, the decision. Forty minutes later I knew I was looking at someone who thought in ways I wanted the whole team to think. She's now leading a product area. The portfolio told me almost nothing useful. The conversation told me everything. I've been suspicious of portfolios ever since.",
+      "There was a period where I ran the team too hard for too long. The work was important. The deadlines were real. None of that changes what happened: I asked more than was sustainable and didn't see it until the signals were impossible to miss. We recovered. The retention numbers look fine in hindsight. But I know what it cost people and I think about it when I'm tempted to push hard again. Which is often.",
+    ],
+  },
+  {
+    id: "learning-to-rebuild",
+    title: "Learning to rebuild",
+    meta: "2019 \u2013 present  \u00B7  Optum (UHG)",
+    story:
+      "The AI transition didn't start with a strategy deck. It started with a conversation I had with a designer on my team who had quietly automated three hours of her weekly work and hadn't told anyone because she was afraid it looked like cheating. That conversation was the moment I understood that the real problem wasn't tools \u2014 it was the mental model my team had about what their job was. We spent the next two years not adopting AI but rebuilding how the team thought about judgment, speed, and what actually required a human. We got to 100% AI-native workflows. I'm still not sure we got the mental model right. That's the work that's left.",
+    moments: [
+      "I wrote a framework for AI-native design practice and distributed it to my team without asking anyone's permission or running it through any approval process. It was four pages. It said which decisions should stay with humans, which could move to agents, and what good design work looked like when AI could generate a competent first draft of almost anything. Half the team thought it was premature. Half thought it was obvious. Both reactions told me it was about right. The framework became the operating model.",
+      "We had an NPS of 32 for a healthcare product. Leadership wanted a campaign to move it to 45. I pushed for a different question: what would make patients actually trust this product with their health data? The answer required changes that would temporarily hurt NPS before improving it. NPS dropped to 28, then climbed to 48 \u2014 an all-time high. The lesson wasn't about metrics. It was about the difference between optimizing for a number and optimizing for the thing the number is supposed to measure. Healthcare makes this distinction impossible to ignore.",
+    ],
+  },
+];
 ---
 
 <Layout page="work" title="Work — Priyank Sharma">
-  <section class="page-intro">
-    <h1>Work.</h1>
+  <section class="page-intro page-intro--thinking">
+    <h1>Work</h1>
     <p class="page-intro-body">
-      A partial résumé. The NDA shelf is taller. Coming soon.
+      Four chapters. Twenty-three years. One career's worth of learning to keep learning.
     </p>
   </section>
+
+  <article class="note-detail">
+    <div class="note-detail-grid">
+      <aside class="note-toc" aria-label="Table of contents">
+        <div class="note-toc-sticky">
+          <div class="note-toc-label">Chapters</div>
+          <ol class="note-toc-list">
+            {chapters.map((c) => (
+              <li>
+                <a href={`#${c.id}`} data-toc-link={c.id}>
+                  <span class="note-toc-title">{c.title}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </aside>
+
+      <div class="note-content">
+        <div class="note-body">
+          {chapters.map((c) => (
+            <section class="work-chapter" id={c.id} data-section={c.id}>
+              <h2 class="work-chapter-title">{c.title}</h2>
+              <p class="work-chapter-meta">{c.meta}</p>
+              <p class="work-story">{c.story}</p>
+              {c.moments && c.moments.map((m) => <p class="work-moment">{m}</p>)}
+            </section>
+          ))}
+
+          <p class="work-footer-note">
+            Placeholder content. Real versions being written. The shape is right even if the details aren't yet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </article>
 </Layout>
+
+<script>
+  /* TOC scrollspy — highlights the chapter link for whichever chapter is in
+     the viewport's middle band. Same pattern as /thinking/:slug and /how-i-work. */
+  const tocLinks = new Map<string, HTMLElement>();
+  document.querySelectorAll<HTMLElement>("[data-toc-link]").forEach((l) => {
+    tocLinks.set(l.dataset.tocLink!, l);
+  });
+  const active = new Set<string>();
+  const spyIo = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      const id = (e.target as HTMLElement).dataset.section!;
+      if (e.isIntersecting) active.add(id); else active.delete(id);
+    }
+    tocLinks.forEach((link, id) => link.classList.toggle("is-current", active.has(id)));
+  }, { rootMargin: "-30% 0px -55% 0px" });
+
+  document.querySelectorAll<HTMLElement>("[data-section]").forEach((s) => spyIo.observe(s));
+</script>

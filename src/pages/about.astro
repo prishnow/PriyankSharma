@@ -1,12 +1,93 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Agent from "../components/Agent.tsx";
+import "../styles/about.css";
+
+const AGENT_RESPONSE =
+  "Start with the job, not the tool. Before anyone in your team touches a license, sit with them and figure out which decisions actually require a human and which you've been doing by hand out of habit. Most of what looks like judgment work is patience work, and agents have more patience than you do. Rebuild the rituals around that split — critique, hiring, onboarding, promotion. The tooling is the last step, not the first. That's the whole game.";
 ---
 
 <Layout page="about" title="About — Priyank Sharma">
-  <section class="page-intro">
-    <h1>About.</h1>
-    <p class="page-intro-body">
-      How I lead, how I got here, what I'm still figuring out. Coming soon.
-    </p>
+  <section class="about-page">
+    <a href="/" class="about-back">&larr; Home</a>
+
+    <h1 class="about-title">About</h1>
+    <p class="about-subtitle">The longer version.</p>
+
+    <div class="about-body">
+      {/* ---- Section 1: no heading ---- */}
+      <section class="about-section">
+        <p>
+          I'm a product design leader with 23 years of experience, most of them spent in healthcare. That last part wasn't the plan.
+        </p>
+        <p>
+          I started in startups, moved into tech, and ended up in healthcare almost by accident. What kept me there was the stakes. Designing a confusing checkout flow costs a company revenue. Designing a confusing medication interface costs someone their health. That difference changes how you work.
+        </p>
+        <p>
+          I currently lead product design at Optum (UnitedHealth Group) in Gurgaon, where I've spent the last 13 years building the India design practice from one person to thirty, shipping two design systems, and more recently rebuilding how the team works in an AI-native world.
+        </p>
+        <p>
+          I'm looking for what comes next &mdash; a design function that needs rebuilding, not polishing, at a scale where the decisions actually matter.
+        </p>
+      </section>
+
+      {/* ---- Section 2: How I lead ---- */}
+      <section class="about-section">
+        <h2 class="about-section-label">How I lead</h2>
+        <p>
+          I think most design orgs are over-managed and under-led. My job is not to have the best taste in the room &mdash; it's to build the kind of environment where good taste can emerge. Those are different things and the confusion between them causes most of the problems I've seen in design teams.
+        </p>
+        <p>
+          I run real critiques, not reviews. I hire for trajectory, not credentials. I give feedback early when it's cheap, not late when it's expensive. I try to be the kind of manager I didn't always have. That's an incomplete project.
+        </p>
+        <p>
+          The longer version of how I work is at <a href="/how-i-work">/how-i-work</a> if you want it.
+        </p>
+      </section>
+
+      {/* ---- Section 3: On AI ---- */}
+      <section class="about-section">
+        <h2 class="about-section-label">On AI</h2>
+        <p>
+          I'm not neutral on this. I think the design function needs to be rebuilt for the AI era &mdash; not optimized, rebuilt. The tools are the easy part. The hard part is the mental model: what decisions stay with humans, what moves to agents, and what the new version of good design work actually looks like.
+        </p>
+        <p>
+          I've been working on this with my team for two years. I'm still figuring it out. Anyone who says they aren't is selling something.
+        </p>
+      </section>
+
+      {/* ---- Section 4: Outside the work ---- */}
+      <section class="about-section">
+        <h2 class="about-section-label">Outside the work</h2>
+        <p>
+          I have 200+ CDs and a portable CD player I take everywhere. I own three Nikons &mdash; two that work and one that doesn't, which was my first camera and I'm not ready to get rid of it. I read a lot. I have a kid who is better at asking questions than most product managers I've worked with.
+        </p>
+        <p>
+          I live in Gurgaon. I'm open to roles globally.
+        </p>
+      </section>
+
+      {/* ---- Section 5: Agent ---- */}
+      <section class="about-section about-section--agent">
+        <h2 class="about-section-label">Ask me anything</h2>
+        <Agent
+          client:load
+          placeholder="Ask me how I'd approach building an AI-native design team."
+          response={AGENT_RESPONSE}
+        />
+      </section>
+
+      {/* ---- CTA ---- */}
+      <hr class="about-cta-hairline" />
+      <div class="about-cta">
+        <a href="#">Book 30 minutes &rarr;</a>
+        <a href="mailto:hi@priyanks.com">hi@priyanks.com</a>
+        <a
+          href="https://linkedin.com/in/priyanksharma-product-design-leader"
+          target="_blank"
+          rel="noopener noreferrer"
+        >LinkedIn &rarr;</a>
+      </div>
+    </div>
   </section>
 </Layout>

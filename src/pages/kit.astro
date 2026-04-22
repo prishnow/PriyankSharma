@@ -1,0 +1,333 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Reactions from "../components/Reactions.astro";
+import "../styles/kit.css";
+
+const sections: { id: string; heading: string }[] = [
+  { id: "hardware", heading: "Hardware" },
+  { id: "software", heading: "Software" },
+  { id: "ai-tools", heading: "AI tools I actually use" },
+  { id: "reading",  heading: "Reading" },
+];
+---
+
+<Layout page="kit" title="What I use — Priyank Sharma">
+  <section class="page-intro page-intro--thinking">
+    <h1>What I use</h1>
+    <p class="page-intro-body">
+      The hardware, software, and books that make up my daily practice. Updated when something changes.
+    </p>
+  </section>
+
+  <article class="note-detail">
+    <div class="note-detail-grid">
+      <aside class="note-toc" aria-label="Table of contents">
+        <div class="note-toc-sticky">
+          <div class="note-toc-label">Contents</div>
+          <ol class="note-toc-list">
+            {sections.map((s) => (
+              <li>
+                <a href={`#${s.id}`} data-toc-link={s.id}>
+                  <span class="note-toc-title">{s.heading}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </aside>
+
+      <div class="note-content">
+        <div class="note-body">
+
+          {/* ---- HARDWARE ---- */}
+          <section class="note-section" id="hardware" data-section="hardware">
+            <h2 class="note-section-head reveal">Hardware</h2>
+
+            <div class="kit-subgroup">
+              <div class="kit-subgroup-label reveal">Computing</div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">MacBook Pro (work) + MacBook Air (personal)</p>
+                <p class="kit-item-desc">Two machines. The Pro stays on the desk. The Air goes everywhere.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.apple.com/in/ipad-pro/" target="_blank" rel="noopener noreferrer">iPad Pro M4 + Apple Pencil Pro</a>
+                </p>
+                <p class="kit-item-desc">The M4 version, released 2024. Thinner than my notebook. I bought it for the Pencil, not the tablet &mdash; sketching ideas in meetings is faster than any other tool I've tried. The tablet turned out to be good too.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.amazon.in/dp/B0BZ4PB9FB" target="_blank" rel="noopener noreferrer">BenQ PD2706UA 27" 4K Designer Monitor</a>
+                </p>
+                <p class="kit-item-desc">27 inches, 4K, Pantone validated. Color accuracy matters when you're arguing about whether that blue is right.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.keychron.com/products/keychron-k2-wireless-mechanical-keyboard" target="_blank" rel="noopener noreferrer">Keychron K2</a>
+                </p>
+                <p class="kit-item-desc">Tenkeyless mechanical. Slightly too loud for open offices, which is part of the appeal.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.amazon.in/dp/B071YZJ1G1" target="_blank" rel="noopener noreferrer">Logitech MX Master Mouse</a>
+                </p>
+                <p class="kit-item-desc">The one mouse I've never needed to replace. Has survived three laptops.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://ergosphere.in/shop/height-adjustable-tables/balanced-desk-home-230/" target="_blank" rel="noopener noreferrer">Ergosphere Balanced Desk Home 230</a>
+                </p>
+                <p class="kit-item-desc">Height adjustable, Indian-made, built properly. I stand for the first two hours of the day and sit for the rest. The standing part is still a negotiation with myself every morning.</p>
+              </div>
+            </div>
+
+            <div class="kit-subgroup">
+              <div class="kit-subgroup-label reveal">Audio</div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.koss.com/products/porta-pro-classic" target="_blank" rel="noopener noreferrer">Koss Porta Pro</a>
+                </p>
+                <p class="kit-item-desc">Open-back, on-ear, looks like 1984. Sounds better than things that cost four times as much. A genuinely strange object that I keep coming back to.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.amazon.in/dp/B076VNFZJG" target="_blank" rel="noopener noreferrer">Meze Alba</a>
+                </p>
+                <p class="kit-item-desc">IEM. Detail retrieval that surprises me every few months when I put them back on.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.fiio.com/ka15" target="_blank" rel="noopener noreferrer">FiiO KA15 DAC/Amp</a>
+                </p>
+                <p class="kit-item-desc">A tiny dongle the size of a cassette tape, which is also what it looks like on the screen. Drives the Meze Alba properly. Audiophile rabbit hole, entered reluctantly.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.fiio.com/dm13" target="_blank" rel="noopener noreferrer">FiiO DM13 Portable CD Player</a>
+                </p>
+                <p class="kit-item-desc">A portable CD player in 2026, which requires some explaining. FiiO's retro series &mdash; same family as a cassette player and turntable they also make. The DM13 is the size of a CD case, has a tiny LCD that shows a spinning tape animation while it plays, and sounds better than it has any right to. I own 200+ CDs. I've stopped counting and started stacking.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.headphonezone.in/products/headphone-zone-x-ddhifi-hi-res-dac-cable" target="_blank" rel="noopener noreferrer">Headphone Zone Stairway Balanced Cable</a>
+                </p>
+                <p class="kit-item-desc">A balanced cable for the Meze. The kind of purchase that requires you to explain yourself to nobody.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.bose.com/en_in/products/headphones/noise_cancelling_headphones/quietcomfort-headphones.html" target="_blank" rel="noopener noreferrer">Bose QuietComfort</a>
+                </p>
+                <p class="kit-item-desc">Noise cancellation for flights and open floors. The Sony crowd will tell you you're wrong. They might be right.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.apple.com/in/airpods-pro/" target="_blank" rel="noopener noreferrer">AirPods Pro</a>
+                </p>
+                <p class="kit-item-desc">For calls. For the gym. For pretending I can't hear things.</p>
+              </div>
+            </div>
+
+            <div class="kit-subgroup">
+              <div class="kit-subgroup-label reveal">Camera</div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">Nikon D800 + D300s</p>
+                <p class="kit-item-desc">Two DSLRs, both discontinued, both working fine. The D800 is full-frame and still embarrasses cameras half its age. The D300s is the one I take when I don't want to worry about it.</p>
+                <p class="kit-item-desc">Lenses: a Nikon macro, 50mm and 85mm primes, a 300mm f/4 for when things are far away and I refuse to move, and a Tamron wide angle for everything else. Each one was a considered purchase. None of them were cheap. All of them still get used.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">Nikon D40</p>
+                <p class="kit-item-desc">My first camera. Doesn't work anymore. Still on the shelf. I'm not sure what that says about me but I'm not ready to find out.</p>
+              </div>
+            </div>
+
+            <div class="kit-subgroup">
+              <div class="kit-subgroup-label reveal">Carry</div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.apple.com/in/iphone-16-pro/" target="_blank" rel="noopener noreferrer">iPhone 16 Pro</a>
+                </p>
+                <p class="kit-item-desc">The device I use most and think about the least. Which is the point.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.amazon.in/s?k=kindle+paperwhite+12th+generation" target="_blank" rel="noopener noreferrer">Kindle Paperwhite 12th Gen</a>
+                </p>
+                <p class="kit-item-desc">I left the previous one on a flight. Had mixed feelings &mdash; losing it was inconvenient, but it was also a clean excuse to buy this one. The upgrade was worth it. I've stopped feeling guilty about either.</p>
+              </div>
+
+              <div class="kit-item reveal">
+                <p class="kit-item-name">
+                  <a href="https://www.amazon.in/dp/B09J8ZXTMD" target="_blank" rel="noopener noreferrer">NEORAH A5 Dot Grid Notebook</a>
+                </p>
+                <p class="kit-item-desc">Handmade, 110gsm, dot grid. I think better on paper. I don't know why and I've stopped trying to explain it.</p>
+              </div>
+
+              <p class="kit-footnote reveal">* Also: a Canon PIXMA MegaTank that works without complaining. I don't think about it, which means it's doing its job.</p>
+            </div>
+          </section>
+
+          {/* ---- SOFTWARE ---- */}
+          <section class="note-section" id="software" data-section="software">
+            <h2 class="note-section-head reveal">Software</h2>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://www.figma.com" target="_blank" rel="noopener noreferrer">Figma</a>
+              </p>
+              <p class="kit-item-desc">Still the best design tool. Not because nothing else exists, but because the collaboration model is genuinely hard to replace.</p>
+            </div>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://www.cursor.com" target="_blank" rel="noopener noreferrer">Cursor</a>
+              </p>
+              <p class="kit-item-desc">An IDE that made me interested in code again. Which I did not expect. Claude Code inside Cursor is the combination that built this site.</p>
+            </div>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a>
+              </p>
+              <p class="kit-item-desc">My primary thinking partner. I use it for writing, research, code, and the occasional argument I need to lose gracefully.</p>
+            </div>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Lovable</a>
+              </p>
+              <p class="kit-item-desc">For prototyping UI experiments fast. The hero on this site started as a Lovable experiment before it became the real thing.</p>
+            </div>
+          </section>
+
+          {/* ---- AI TOOLS ---- */}
+          <section class="note-section" id="ai-tools" data-section="ai-tools">
+            <h2 class="note-section-head reveal">AI tools I actually use</h2>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude Code</a>
+              </p>
+              <p class="kit-item-desc">Agentic coding inside Cursor. Built most of this site. The context window gets full faster than I'd like but the output is worth it.</p>
+            </div>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude (claude.ai)</a>
+              </p>
+              <p class="kit-item-desc">For writing, strategy, research synthesis, and thinking out loud at 11pm. The thinking partner I didn't know I needed.</p>
+            </div>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer">Lovable</a>
+              </p>
+              <p class="kit-item-desc">Generative UI prototyping. Fast enough that I use it to test ideas before committing to them.</p>
+            </div>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://www.figma.com" target="_blank" rel="noopener noreferrer">Figma AI</a>
+              </p>
+              <p class="kit-item-desc">For early-stage explorations. Not a replacement for craft &mdash; a first draft generator I then argue with.</p>
+            </div>
+          </section>
+
+          {/* ---- READING ---- */}
+          <section class="note-section" id="reading" data-section="reading">
+            <h2 class="note-section-head reveal">Reading</h2>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://www.amazon.in/About-Face-Essentials-Interaction-Design/dp/1118766571" target="_blank" rel="noopener noreferrer">About Face &mdash; Alan Cooper</a>
+              </p>
+              <p class="kit-item-desc">The book that made me take interaction design seriously. Still more relevant than most things published in the last five years. I've given away more copies than I can count.</p>
+            </div>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://www.amazon.in/Shoe-Dog-Memoir-Creator-Nike/dp/1501135929" target="_blank" rel="noopener noreferrer">Shoe Dog &mdash; Phil Knight</a>
+              </p>
+              <p class="kit-item-desc">Not a design book. A book about building something from nothing with incomplete information and too much stubbornness. Which is most of what design leadership actually is.</p>
+            </div>
+
+            <div class="kit-item reveal">
+              <p class="kit-item-name">
+                <a href="https://www.amazon.in/Book-Joy-Lasting-Happiness-Changing/dp/0399185046" target="_blank" rel="noopener noreferrer">The Book of Joy &mdash; Dalai Lama and Desmond Tutu</a>
+              </p>
+              <p class="kit-item-desc">Two people who have genuinely good reasons to be unhappy, choosing not to be. I read it when the work gets heavy.</p>
+            </div>
+          </section>
+
+          <hr class="kit-updated-hairline" />
+          <p class="kit-updated">Last updated April 2026. This list changes slowly.</p>
+        </div>
+
+        <nav class="note-detail-footer">
+          <a href="/" class="note-backlink">&larr; Home</a>
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <Reactions articleId="kit" />
+</Layout>
+
+<script>
+  /* Reveal cascade: first 8 elements on load, rest via IntersectionObserver —
+     identical pattern to /how-i-work and essay pages. */
+  const revealables = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+  const BASE_DELAY = 150;
+  const STAGGER = 120;
+  const INITIAL_BATCH = Math.min(revealables.length, 8);
+
+  for (let i = 0; i < INITIAL_BATCH; i++) {
+    const el = revealables[i];
+    window.setTimeout(() => el.classList.add("is-in"), BASE_DELAY + i * STAGGER);
+  }
+  if (revealables.length > INITIAL_BATCH) {
+    const revealIo = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealIo.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    for (let j = INITIAL_BATCH; j < revealables.length; j++) {
+      revealIo.observe(revealables[j]);
+    }
+  }
+
+  /* TOC scrollspy */
+  const tocLinks = new Map<string, HTMLElement>();
+  document.querySelectorAll<HTMLElement>("[data-toc-link]").forEach((l) => {
+    tocLinks.set(l.dataset.tocLink!, l);
+  });
+  const active = new Set<string>();
+  const spyIo = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      const id = (e.target as HTMLElement).dataset.section!;
+      if (e.isIntersecting) active.add(id); else active.delete(id);
+    }
+    tocLinks.forEach((link, id) => link.classList.toggle("is-current", active.has(id)));
+  }, { rootMargin: "-30% 0px -55% 0px" });
+
+  document.querySelectorAll<HTMLElement>("[data-section]").forEach((s) => spyIo.observe(s));
+</script>

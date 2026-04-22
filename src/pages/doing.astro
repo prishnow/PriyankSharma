@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/doing.css";
+
+interface Project {
+  name: string;
+  description: string;
+  stack: string[];
+  status: "Live" | "In progress" | "Abandoned";
+  href?: string;
+}
+
+const projects: Project[] = [
+  {
+    name: "This site",
+    description:
+      "Built with Astro, Cloudflare Pages, and Claude Code. Started as a Lovable experiment. The hero took one afternoon. The reactions backend took a Sunday. Still adding rooms.",
+    stack: ["Astro", "Cloudflare", "Claude Code", "Lovable"],
+    status: "Live",
+    href: "https://priyanksharma.pages.dev",
+  },
+  // <!-- Add more project cards here as you build them -->
+];
+
+function statusClass(s: Project["status"]): string {
+  return s.toLowerCase().replace(/\s+/g, "-");
+}
+---
+
+<Layout page="doing" title="Doing — Priyank Sharma">
+  <section class="doing-page">
+    <a href="/" class="doing-page-back">&larr; Home</a>
+
+    <h1 class="doing-page-title">Doing</h1>
+    <p class="doing-page-subtitle">
+      Things I'm building, breaking, and learning from. Mostly with AI. Updated when something ships.
+    </p>
+
+    <div class="doing-grid">
+      {projects.map((p) => (
+        <article class={`doing-card is-${statusClass(p.status)}`}>
+          <span class="doing-card-status">{p.status}</span>
+          <h2 class="doing-card-name">{p.name}</h2>
+          <p class="doing-card-desc">{p.description}</p>
+          <div class="doing-card-stack">
+            {p.stack.map((s) => <span class="doing-card-tag">{s}</span>)}
+          </div>
+          {p.status === "Live" && p.href && (
+            <a class="doing-card-open" href={p.href} target="_blank" rel="noopener noreferrer">
+              Open &rarr;
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

@@ -1,22 +1,141 @@
 ---
 interface Props {
   articleId: string;
+  /** If true, render inline in the document flow instead of fixed to the viewport. */
+  inline?: boolean;
 }
-const { articleId } = Astro.props;
+const { articleId, inline = false } = Astro.props;
 
+/**
+ * Multi-colour pixel-art reaction icons. Each cell is a 2×2 unit rect on
+ * a 16×16 viewBox with `shape-rendering="crispEdges"` so browsers keep
+ * the pixels blocky. Each icon layers a main colour plus a second accent
+ * colour (shadow, highlight, or feature detail). Keys kept intact
+ * (thoughtful/relatable/good/loved/mind) so existing KV counts persist.
+ */
 const reactions = [
-  { key: "thoughtful", emoji: "🤔", label: "Very thoughtful" },
-  { key: "relatable",  emoji: "🙏", label: "So relatable"    },
-  { key: "good",       emoji: "👍", label: "So good"         },
-  { key: "loved",      emoji: "❤️", label: "Loved it"        },
-  { key: "mind",       emoji: "🤯", label: "Blew my mind"    },
+  {
+    key: "thoughtful",
+    label: "True",
+    // Green check — emerald body + lime highlight along the up-stroke
+    icon: `<svg viewBox="0 0 16 16" width="16" height="16" shape-rendering="crispEdges">
+      <g fill="#059669">
+        <rect x="0" y="4" width="2" height="2"/>
+        <rect x="0" y="6" width="4" height="2"/>
+        <rect x="2" y="8" width="6" height="2"/>
+        <rect x="4" y="10" width="4" height="2"/>
+      </g>
+      <g fill="#34D399">
+        <rect x="14" y="0" width="2" height="2"/>
+        <rect x="12" y="2" width="4" height="2"/>
+        <rect x="10" y="4" width="4" height="2"/>
+        <rect x="8" y="6" width="4" height="2"/>
+        <rect x="6" y="8" width="4" height="2"/>
+      </g>
+    </svg>`,
+  },
+  {
+    key: "relatable",
+    label: "Felt that",
+    // Yellow pixel face — yellow body + black eyes/mouth + pink cheeks
+    icon: `<svg viewBox="0 0 16 16" width="16" height="16" shape-rendering="crispEdges">
+      <g fill="#FBBF24">
+        <rect x="4" y="0" width="8" height="2"/>
+        <rect x="2" y="2" width="12" height="2"/>
+        <rect x="0" y="4" width="16" height="8"/>
+        <rect x="2" y="12" width="12" height="2"/>
+        <rect x="4" y="14" width="8" height="2"/>
+      </g>
+      <g fill="#1F2937">
+        <rect x="4" y="6" width="2" height="2"/>
+        <rect x="10" y="6" width="2" height="2"/>
+        <rect x="4" y="10" width="8" height="2"/>
+      </g>
+      <g fill="#F472B6">
+        <rect x="2" y="8" width="2" height="2"/>
+        <rect x="12" y="8" width="2" height="2"/>
+      </g>
+    </svg>`,
+  },
+  {
+    key: "good",
+    label: "Sharing this",
+    // Paper plane — blue body + lighter cyan on the fold-line
+    icon: `<svg viewBox="0 0 16 16" width="16" height="16" shape-rendering="crispEdges">
+      <g fill="#2563EB">
+        <rect x="12" y="0" width="4" height="2"/>
+        <rect x="10" y="2" width="6" height="2"/>
+        <rect x="8" y="4" width="6" height="2"/>
+        <rect x="6" y="6" width="6" height="2"/>
+        <rect x="0" y="8" width="12" height="2"/>
+        <rect x="0" y="10" width="2" height="2"/>
+        <rect x="8" y="10" width="2" height="2"/>
+        <rect x="8" y="12" width="2" height="2"/>
+      </g>
+      <g fill="#7DD3FC">
+        <rect x="14" y="2" width="2" height="2"/>
+        <rect x="12" y="4" width="2" height="2"/>
+        <rect x="10" y="6" width="2" height="2"/>
+      </g>
+    </svg>`,
+  },
+  {
+    key: "loved",
+    label: "Worth it",
+    // Pixel star — gold body + orange shadow on the lower half
+    icon: `<svg viewBox="0 0 16 16" width="16" height="16" shape-rendering="crispEdges">
+      <g fill="#FBBF24">
+        <rect x="6" y="0" width="4" height="2"/>
+        <rect x="6" y="2" width="4" height="2"/>
+        <rect x="0" y="4" width="16" height="2"/>
+        <rect x="2" y="6" width="12" height="2"/>
+        <rect x="4" y="8" width="8" height="2"/>
+      </g>
+      <g fill="#D97706">
+        <rect x="2" y="10" width="4" height="2"/>
+        <rect x="10" y="10" width="4" height="2"/>
+        <rect x="0" y="12" width="4" height="2"/>
+        <rect x="12" y="12" width="4" height="2"/>
+        <rect x="0" y="14" width="2" height="2"/>
+        <rect x="14" y="14" width="2" height="2"/>
+      </g>
+    </svg>`,
+  },
+  {
+    key: "mind",
+    label: "Bookmarked",
+    // Pixel bookmark — purple ribbon body + coral accent on the notch
+    icon: `<svg viewBox="0 0 16 16" width="16" height="16" shape-rendering="crispEdges">
+      <g fill="#7C3AED">
+        <rect x="4" y="0" width="8" height="2"/>
+        <rect x="4" y="2" width="8" height="2"/>
+        <rect x="4" y="4" width="8" height="2"/>
+        <rect x="4" y="6" width="8" height="2"/>
+        <rect x="4" y="8" width="8" height="2"/>
+        <rect x="4" y="10" width="2" height="2"/>
+        <rect x="10" y="10" width="2" height="2"/>
+        <rect x="4" y="12" width="2" height="2"/>
+        <rect x="10" y="12" width="2" height="2"/>
+      </g>
+      <g fill="#F87171">
+        <rect x="6" y="12" width="4" height="2"/>
+        <rect x="4" y="14" width="2" height="2"/>
+        <rect x="10" y="14" width="2" height="2"/>
+      </g>
+    </svg>`,
+  },
 ];
 ---
 
-<div class="reactions-bar" data-article-id={articleId} role="group" aria-label="Reactions">
+<div
+  class={`reactions-bar ${inline ? "reactions-bar--inline" : ""}`}
+  data-article-id={articleId}
+  role="group"
+  aria-label="Reactions"
+>
   {reactions.map((r) => (
     <button class="reaction" data-key={r.key} aria-label={r.label} type="button">
-      <span class="reaction-emoji" aria-hidden="true">{r.emoji}</span>
+      <span class="reaction-emoji" aria-hidden="true" set:html={r.icon}></span>
       <span class="reaction-label">{r.label}</span>
       <span class="reaction-count" hidden>0</span>
     </button>
@@ -125,6 +244,16 @@ const reactions = [
     animation-delay: 0.4s;
   }
 
+  /* Inline variant: render statically in document flow. Used on /how-i-work. */
+  .reactions-bar--inline {
+    position: static;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    margin: 0 auto;
+    animation: none;
+  }
+
   @keyframes reactions-rise {
     from { opacity: 0; transform: translate(-50%, 12px); }
     to   { opacity: 1; transform: translate(-50%, 0); }
@@ -156,12 +285,23 @@ const reactions = [
   }
 
   .reaction-emoji {
-    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
     line-height: 1;
-    display: inline-block;
-    transform-origin: 50% 70%;
+    transform-origin: 50% 50%;
+    color: currentColor;
+    will-change: transform;
   }
-  .reaction-label { font-weight: 600; }
+  .reaction-emoji svg { display: block; image-rendering: pixelated; }
+  .reaction-label {
+    font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
   .reaction-count {
     color: var(--fg-muted);
     font-weight: 600;
@@ -171,38 +311,45 @@ const reactions = [
   .reaction.has-count { background: var(--bg-soft); }
 
   .reaction.bump .reaction-emoji {
-    animation: reaction-bump 0.52s cubic-bezier(.2,.7,.2,1);
+    animation: reaction-bump 0.7s cubic-bezier(.2,.7,.2,1);
   }
+  /* Keyframes tuned for maximum "click-me-again" feel: a fast squish,
+     then an oversized pop (~3.2×), then a few rebounds that settle. */
   @keyframes reaction-bump {
-    0%   { transform: scale(1) rotate(0deg); }
-    25%  { transform: scale(1.7) rotate(-14deg); }
-    55%  { transform: scale(0.9) rotate(6deg); }
-    80%  { transform: scale(1.08) rotate(-2deg); }
-    100% { transform: scale(1) rotate(0deg); }
+    0%   { transform: scale(1)    rotate(0deg); }
+    8%   { transform: scale(0.82) rotate(-8deg); }
+    22%  { transform: scale(3.2)  rotate(-18deg); }
+    38%  { transform: scale(0.7)  rotate(14deg); }
+    55%  { transform: scale(1.8)  rotate(-8deg); }
+    70%  { transform: scale(0.9)  rotate(5deg); }
+    85%  { transform: scale(1.2)  rotate(-2deg); }
+    100% { transform: scale(1)    rotate(0deg); }
   }
 
-  /* Floating "+1" that rises and fades on click */
+  /* Floating "+1" that rises and fades on click — bigger and louder now */
   .reaction::after {
     content: "+1";
     position: absolute;
-    top: 6px;
+    top: 4px;
     left: 50%;
-    transform: translate(-50%, 0) scale(0.7);
+    transform: translate(-50%, 0) scale(0.6);
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 0;
     color: var(--accent);
+    text-shadow: 0 1px 2px rgba(15, 15, 16, 0.12);
     opacity: 0;
     pointer-events: none;
   }
   .reaction.bump::after {
-    animation: reaction-plus 0.9s cubic-bezier(.2,.7,.2,1);
+    animation: reaction-plus 1s cubic-bezier(.2,.7,.2,1);
   }
   @keyframes reaction-plus {
-    0%   { opacity: 0; transform: translate(-50%, 0) scale(0.7); }
-    20%  { opacity: 1; transform: translate(-50%, -6px) scale(1); }
-    100% { opacity: 0; transform: translate(-50%, -36px) scale(1.1); }
+    0%   { opacity: 0; transform: translate(-50%, 0)    scale(0.6); }
+    18%  { opacity: 1; transform: translate(-50%, -14px) scale(1.35); }
+    60%  { opacity: 1; transform: translate(-50%, -38px) scale(1.15); }
+    100% { opacity: 0; transform: translate(-50%, -58px) scale(1.4); }
   }
 
   @media (max-width: 640px) {

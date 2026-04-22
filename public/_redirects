@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects — served as true HTTP 301 before any static
+# asset is looked up. The Astro-generated meta-refresh HTML files at
+# /notes/index.html and /notes/<slug>/index.html remain as a fallback for
+# any host that doesn't honour _redirects.
+/notes            /thinking            301
+/notes/*          /thinking/:splat     301
+/uses             /kit                 301
