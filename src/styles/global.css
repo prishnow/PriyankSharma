@@ -200,7 +200,27 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .nav-cta .btn-dark:hover { background: var(--accent); color: #fff; }
 
 @media (max-width: 900px) {
-  .nav-links { display: none; }
+  .nav-inner { padding: 14px var(--pad); gap: 12px; }
+  .nav-links { gap: 16px; font-size: 13px; }
+  .brand { font-size: 0.9rem; }
+}
+@media (max-width: 560px) {
+  .nav-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 12px var(--pad);
+  }
+  .nav-links {
+    gap: 14px;
+    font-size: 12.5px;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { white-space: nowrap; padding: 4px 2px; }
 }
 
 /* ---------- Hero (left-aligned) ---------- */
